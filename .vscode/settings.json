@@ -1,0 +1,7 @@
+{
+    "python.linting.pylintPath": "pylint_django",
+    "[python]": {
+    
+        "editor.wordBasedSuggestions": false
+    }
+}
