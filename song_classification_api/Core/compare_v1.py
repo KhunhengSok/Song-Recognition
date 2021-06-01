@@ -1,24 +1,18 @@
-from pydub import AudioSegment
-import pandas as pd 
-import librosa 
-from .Sampling_v1 import * 
-from .compare_v1 import * 
-from .SongHelper import * 
+from .DatabaseHandler import * 
+
+def find_fingerprint_match(hash, offset, conn=None):
+    sql = f"""
+        SELECT distinct * 
+        FROM TBl_SONG_FINGERPRINTS
+        WHERE hash = '{hash}'
+    """
+    if conn is None: 
+        conn = connect()
+    result = pd.read_sql(sql, conn)
+    conn.close()
+    return result
 
 
-def concat_song(files_path, destination_file_path):
-    '''
-        params:
-            - files_path: list of file path
-    '''
-    for file in files_path: 
-        if file.endswith('.mp3'):
-                sound = AudioSegment.from_mp3(file)
-                if song is None: 
-                    song = sound 
-                else: 
-                    song = song + sound 
-        song.export(destination_file_path, format="mp3")
 
 
 def classify_song(file_path):
@@ -34,6 +28,7 @@ def classify_song(file_path):
     for fingerprint, offset in fingerprints: 
         result = find_fingerprint_match(fingerprint, offset)
         result['time_delta'] = result['offset'] - int(offset)
+#             result = result.drop(['offset'], axis=1)            
         if matches is not  None and len(result) !=0:
             matches = pd.concat([matches, result], axis=0, )
         elif len(result) != 0 and matches is  None: 

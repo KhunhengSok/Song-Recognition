@@ -1,3 +1,4 @@
+from song_classification_api.Core import DatabaseHandler
 from django.shortcuts import render
 from rest_framework import viewsets, views
 from rest_framework.response import Response
@@ -10,8 +11,21 @@ import os
 from datetime import datetime
 from Song_Classification.settings import MEDIA_ROOT, MEDIA_URL, BASE_DIR
 
+from .Core.util  import * 
+from . import Core
+from song_classification_api.Core import util 
+
 # Create your views here.
 # class SongViewSet(viewsets.ModelViewSet):
+
+
+def listify(string, delimiter=','):
+    l = []
+    for ele in string.split(delimiter):
+        l.append(ele.strip())
+    return l
+
+
 class SongViewSet(viewsets.ModelViewSet):
     querySet = Song.objects.all()
     serializer_class = SongSerializer
@@ -30,19 +44,33 @@ class SongViewSet(viewsets.ModelViewSet):
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+
+
     def create(self, request):
-        print(request.FILES)
         file = request.FILES['recorded']
+        print(request.data)
+        idx = request.data['idx'][0] or 0
+        if idx != 0: 
+            previous_stream = request.data.getlist('previous_stream', [])
+            previous_stream = listify(previous_stream[0])
+            previous_stream.append(file)
+
         date  = datetime.today().strftime('%Y-%m-%d')
-        date = os.path.join(MEDIA_ROOT, date)
-        os.makedirs(date, exist_ok=True)
- 
-        fs = FileSystemStorage(date)
+        dir = os.path.join(MEDIA_ROOT, date)
+        os.makedirs(dir, exist_ok=True)
+        
+        fs = FileSystemStorage(dir)
         filename = fs.save(file.name, file)
         uploaded_file_url = fs.url(filename)
-        file_full_path = os.path.join(MEDIA_ROOT, uploaded_file_url)
+        file_full_path = os.path.join(dir, filename)
         
-        return Response(file_full_path)
+        #get db connection
+        conn = DatabaseHandler.connect()
+        result  = util.classify_song(file_full_path)
+        
+
+        return Response(status=status.HTTP_200_OK, data=result )
 
     
 
