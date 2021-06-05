@@ -9,15 +9,21 @@ class Song(models.Model):
     total_fingerprints = models.IntegerField()
     file_location = models.CharField(max_length=100)
 
+    class Meta:
+        db_table  = 'tbl_songs'
+
     def __str__(self):
         return self.name
 
 class SongFingerprint(models.Model):
-    id = models.AutoField(primary_key=True, db_index=True, editable=False )
+    id = models.AutoField(primary_key=True,  db_index=True, editable=False )
     hash = models.CharField(max_length = 35, db_index=True)
     offset = models.IntegerField()
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, db_index=True,)
     
+    class Meta:
+        db_table  = 'tbl_song_fingerprints'
+
     def __str__(self):
         return self.hash
 

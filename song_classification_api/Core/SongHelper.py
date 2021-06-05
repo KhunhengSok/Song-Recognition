@@ -1,3 +1,10 @@
+from  .DatabaseHandler import * 
+from mutagen.easyid3 import EasyID3 
+import mutagen 
+import os 
+import pandas as pd 
+
+
 def get_song_meta(file_path):
     song_name, artist, album = '', '', ''
     try: 
@@ -34,7 +41,9 @@ def is_song_exists(song_name='', file_location=''):
 #     print(sql)
     conn = connect()
     return pd.read_sql(sql, conn).shape[0] >0
-    
+
+def preprocess_string(string):
+    return   string.replace("'", "''")
     
 def get_song_id(song_name='', file_location=''):
     song_name = '%' + song_name.replace(' ', '%') + '%'

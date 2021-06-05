@@ -1,4 +1,7 @@
 from .DatabaseHandler import * 
+import pandas as pd 
+from .SongHelper import * 
+from  .Sampling_v1 import * 
 
 def find_fingerprint_match(hash, offset, conn=None):
     sql = f"""

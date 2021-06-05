@@ -6,19 +6,24 @@ from .compare_v1 import *
 from .SongHelper import * 
 
 
-def concat_song(files_path, destination_file_path):
+def concat_song(dir, filenames, destination_file_path):
     '''
         params:
             - files_path: list of file path
     '''
-    for file in files_path: 
+    song = None
+    for name in filenames: 
+        file = os.path.join(dir, name)
         if file.endswith('.mp3'):
                 sound = AudioSegment.from_mp3(file)
                 if song is None: 
                     song = sound 
                 else: 
                     song = song + sound 
-        song.export(destination_file_path, format="mp3")
+        # song.export(destination_file_path, format="mp3")
+        song.export(os.path.join(dir , 'generated.mp3'), format="mp3")
+
+    return destination_file_path
 
 
 def classify_song(file_path):
