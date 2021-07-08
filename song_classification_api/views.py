@@ -14,6 +14,7 @@ from Song_Classification.settings import MEDIA_ROOT, MEDIA_URL, BASE_DIR
 from .Core.util  import * 
 from . import Core
 from song_classification_api.Core import util 
+from pprint import pprint
 
 # Create your views here.
 # class SongViewSet(viewsets.ModelViewSet):
@@ -41,7 +42,7 @@ class SongViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND, data = {'msg': 'Not Found'})
         else: 
             serializer = SongSerializer(song)
-            print(serializer.data)
+            pprint(serializer.data)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -87,15 +88,20 @@ class SongViewSet(viewsets.ModelViewSet):
         #get db connection
         print(file_full_path)
         conn = DatabaseHandler.connect()
-        result, total, std, mean = util.classify_song(file_full_path)
+        result, _, std, mean = util.classify_song(file_full_path)
+        total = 0 
+
+        
         if result is not None and len(result) > 0: 
             # result = {k: v for k, v in list(result.items())[:10]} #get first 10 items
             result = [v for k, v in list(result.items())[:10] ] #get first 10 items
+        for r in result:
+            total += r['matched']
         result = {'result': result}
         result['total_fingerprints'] = total
         result['std'] = std
         result['mean'] = mean
-        print(result)
+        pprint(result)
 
         return Response(status=status.HTTP_200_OK, data=result )
 

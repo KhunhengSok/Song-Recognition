@@ -66,6 +66,8 @@ def classify_song(file_path):
     fingerprints = feature_extraction_from_file(file_path)
     song_ids = { }
     matches = None 
+  
+
     for fingerprint, offset in fingerprints: 
         result = find_fingerprint_match(fingerprint, offset)
         result['time_delta'] = result['offset'] - int(offset)
@@ -75,7 +77,7 @@ def classify_song(file_path):
         elif len(result) != 0 and matches is  None: 
             matches = result
 
-    matches = [ ]
+    matches_amt = [ ]
     result = {}  
     std = 0 
     mean = 0 
@@ -91,7 +93,7 @@ def classify_song(file_path):
             
             song_id, song_name, artist, album, location, total_fingerprints = song
             total_matches += matches.loc[i, 'hash']
-            matches.append(matches.loc[i, 'hash'])
+            matches_amt.append(matches.loc[i, 'hash'])
             result[song_id] = {
                 'matched': matches.loc[i, 'hash'],
                 'info': {
@@ -101,6 +103,6 @@ def classify_song(file_path):
                     'album': album
                 }
             } 
-        std  = 0 if np.isnan(np.std(matches )  ) else np.std(matches )  
-        mean = 0 if np.isnan(np.mean(matches)) else np.mean(matches)
+        std  = 0 if np.isnan(np.std(matches_amt )  ) else np.std(matches_amt )  
+        mean = 0 if np.isnan(np.mean(matches_amt)) else np.mean(matches_amt)
     return result, total_matches, std, mean
