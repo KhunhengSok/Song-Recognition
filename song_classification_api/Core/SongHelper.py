@@ -25,7 +25,19 @@ def get_song_meta(file_path):
         'album':     album
     }
     return dict
-    
+
+def get_song(id):
+    sql = f"""
+        SELECT  *
+        FROM TBL_SONGS 
+        WHERE id = {id}
+    """
+    cxn = connect()
+    cursor = cxn.cursor()
+    cursor.execute(sql)
+    return cursor.fetchone()
+
+   
     
 def is_song_exists(song_name='', file_location=''):
     song_name = preprocess_string(song_name)

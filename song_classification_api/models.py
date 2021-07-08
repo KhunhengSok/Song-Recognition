@@ -6,8 +6,8 @@ class Song(models.Model):
     name = models.CharField(max_length=60)
     artist = models.CharField(max_length =50)
     album = models.CharField(max_length =50, default=None)
-    total_fingerprints = models.IntegerField()
     file_location = models.CharField(max_length=100)
+    total_fingerprints = models.IntegerField()
 
     class Meta:
         db_table  = 'tbl_songs'

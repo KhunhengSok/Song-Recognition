@@ -48,9 +48,17 @@ class SongViewSet(viewsets.ModelViewSet):
 
 
     def create(self, request):
-        print(request.FILES)
+        '''
+            recorded:   file 
+            idx:        int
+            previous_stream:  list<str>
+
+            return 
+        '''
+        # print(request.FILES)
+        # print(request.data)
         file = request.FILES['recorded']
-        idx = request.data.get('idx', [0])[0]
+        idx = int(request.data.get('idx', [0])[0])
 
 
         date  = datetime.today().strftime('%Y-%m-%d')
@@ -62,21 +70,31 @@ class SongViewSet(viewsets.ModelViewSet):
         uploaded_file_url = fs.url(filename)
         file_full_path = os.path.join(dir, filename)
         
+
+        #*************
+        file_full_path = r'D:\Document\RUPP\Fourth Year\Semester 1\Project Practicum\Practice\Musics\Khmer Songs - Sampling\4s\សង្សារចាស់ Ver.wav'
+
         if idx != 0: 
             previous_stream = request.data.getlist('previous_stream', [])
             previous_stream = listify(previous_stream[0])
             previous_stream.append(filename)
+            print(previous_stream)
+            file_full_path = concat_song( dir, previous_stream, os.path.join(dir, filename) )
 
-        print(previous_stream)
-        file_full_path = concat_song( dir, previous_stream, os.path.join(dir, filename) )
+        if file_full_path is None: 
+            return Response(status=status.HTTP_404_NOT_FOUND )
 
         #get db connection
+        print(file_full_path)
         conn = DatabaseHandler.connect()
-        result  = util.classify_song(file_full_path)
+        result, total, std, mean = util.classify_song(file_full_path)
         if result is not None and len(result) > 0: 
-            result = {k: v for k, v in list(result.items())[:10]} #get first 10 items
+            # result = {k: v for k, v in list(result.items())[:10]} #get first 10 items
+            result = [v for k, v in list(result.items())[:10] ] #get first 10 items
         result = {'result': result}
-
+        result['total_fingerprints'] = total
+        result['std'] = std
+        result['mean'] = mean
         print(result)
 
         return Response(status=status.HTTP_200_OK, data=result )

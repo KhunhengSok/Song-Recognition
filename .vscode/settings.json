@@ -3,5 +3,6 @@
     "[python]": {
     
         "editor.wordBasedSuggestions": false
-    }
+    },
+    "python.pythonPath": "C:\\Users\\Khunheng Sok\\anaconda3\\envs\\song_classification\\python.exe"
 }
