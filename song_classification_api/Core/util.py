@@ -91,6 +91,9 @@ def classify_song(file_path):
         for i in range(  len(matches) ):
             song = get_song(matches.loc[i, 'song_id'])  
             
+            if song is None: 
+                continue 
+            
             song_id, song_name, artist, album, location, total_fingerprints = song
             total_matches += matches.loc[i, 'hash']
             matches_amt.append(matches.loc[i, 'hash'])
