@@ -6,7 +6,7 @@ from  .Sampling_v1 import *
 def find_fingerprint_match(hash, offset, conn=None):
     sql = f"""
         SELECT distinct * 
-        FROM TBl_SONG_FINGERPRINTS
+        FROM tbl_song_fingerprints
         WHERE hash = '{hash}'
     """
     if conn is None: 

@@ -103,9 +103,9 @@ class SongViewSet(viewsets.ModelViewSet):
         std = float(std)
         mean = float(mean)
 
-        result['total_fingerprints'] = total
-        result['std'] = std
-        result['mean'] = mean
+        # result['total_fingerprints'] = total
+        # result['std'] = std
+        # result['mean'] = mean
         
         # result = {
         #     "result": [
@@ -113,8 +113,8 @@ class SongViewSet(viewsets.ModelViewSet):
         #             "info":{
         #                 # "song_name":"សង្សារចាស់ Ver. After Break By ម៉ា ច័ន្ទបញ្ញា (MCP) ft. Ex",
         #                 "song_name":"សង្សារចាស់",
-        #                 "artist": "Khunheng Sok",
-        #                 "song_id": 2
+        #                 "artist": "Khunheng Sok1",
+        #                 "song_id": 1
         #             },
         #             "matched": 100
         #         }

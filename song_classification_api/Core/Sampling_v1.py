@@ -10,7 +10,6 @@ from scipy.signal import find_peaks
 from scipy.fft import fft, fftfreq, rfft, rfftfreq, irfft, ifft
 from scipy.io import wavfile
 import scipy
-import IPython
 
 import sys
 # sys.path.append("..") # Adds higher directory to python modules path.
@@ -35,7 +34,7 @@ import mutagen
 
 # version 2 
 upper_freq = 5000
-n_fft = 2048
+n_fft = 1024
 amp_min = 5
 sr = 44100
 
