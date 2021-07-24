@@ -106,10 +106,13 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': r'/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
+            'HOST': '34.87.117.237',
             'USER': 'root',
             'PASSWORD': '',
             'NAME': 'song_classification_api',
+            'OPTIONS': {
+                'read_default_file': '/opt/lampp/etc/my.cnf',
+            }
         }
     }
 else:
