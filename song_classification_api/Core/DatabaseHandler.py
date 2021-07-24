@@ -14,7 +14,7 @@ def connect(cred=dict()):
     #     cred['database'] = 'song_classification_api'
     config = {
         'user': 'root',
-        'password': '',
+        'password': 'Tkx$3MI*ThCi',
         'host': '34.87.117.237',
         'client_flags': [ClientFlag.SSL],
         'ssl_ca': 'ssl/server-ca.pem',
