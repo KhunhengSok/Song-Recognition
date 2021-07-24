@@ -137,10 +137,13 @@ else:
         # }
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': r'/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
+            'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
             'USER': 'root',
             'PASSWORD': '',
             'NAME': 'song_classification_api',
+            'OPTIONS': {
+                'read_default_file': '/opt/lampp/etc/my.cnf',
+            }
         }
     }
 # [END db_setup]
