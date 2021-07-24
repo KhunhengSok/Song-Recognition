@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jd!8o$q2egpu@=*6nr=9&4t7(ib091$j7oi9@=c4^!_qyly+e1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -108,7 +108,7 @@ if os.getenv('GAE_APPLICATION', None):
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
             'USER': 'root',
-            'PASSWORD': 'Tkx$3MI*ThCi',
+            'PASSWORD': 'abcde',
             'NAME': 'song_classification_api',
             'OPTIONS': {
                 'read_default_file': '/opt/lampp/etc/my.cnf',
@@ -131,23 +131,23 @@ else:
     #     }
     # }
     DATABASES = {
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.mysql',
-        #     'HOST': '127.0.0.1',
-        #     'USER': 'root',
-        #     'PASSWORD': '',
-        #     'NAME': 'song_classification_api',
-        # }
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
+            'HOST': '127.0.0.1',
             'USER': 'root',
-            'PASSWORD': 'Tkx$3MI*ThCi',
+            'PASSWORD': '',
             'NAME': 'song_classification_api',
-            'OPTIONS': {
-                'read_default_file': '/opt/lampp/etc/my.cnf',
-            }
         }
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.mysql',
+        #     'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
+        #     'USER': 'root',
+        #     'PASSWORD': 'abcde',
+        #     'NAME': 'song_classification_api',
+        #     'OPTIONS': {
+        #         'read_default_file': '/opt/lampp/etc/my.cnf',
+        #     }
+        # }
     }
 # [END db_setup]
 
