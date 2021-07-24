@@ -106,7 +106,7 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '34.87.117.237',
+            'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
             'USER': 'root',
             'PASSWORD': 'Tkx$3MI*ThCi',
             'NAME': 'song_classification_api',
@@ -140,7 +140,7 @@ else:
         # }
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '34.87.117.237',
+            'HOST': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
             'USER': 'root',
             'PASSWORD': 'Tkx$3MI*ThCi',
             'NAME': 'song_classification_api',

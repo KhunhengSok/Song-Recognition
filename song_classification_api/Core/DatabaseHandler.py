@@ -15,7 +15,7 @@ def connect(cred=dict()):
     config = {
         'user': 'root',
         'password': 'Tkx$3MI*ThCi',
-        'host': '34.87.117.237',
+        'host': '/cloudsql/song-classification-320121:asia-southeast1:songclassification2021',
         'client_flags': [ClientFlag.SSL],
         'ssl_ca': 'ssl/server-ca.pem',
         'ssl_cert': 'ssl/client-cert.pem',
